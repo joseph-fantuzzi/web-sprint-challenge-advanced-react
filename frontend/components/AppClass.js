@@ -305,6 +305,7 @@ export default class AppClass extends React.Component {
       steps: 0,
       message: "",
       grid: origin,
+      emailInput: "",
     });
   };
 

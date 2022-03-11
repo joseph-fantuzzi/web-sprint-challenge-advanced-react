@@ -60,9 +60,8 @@ describe("App Functional Component", () => {
   test("when submitting an empty input, confirm the screen renders an error message", async () => {
     const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);
-    const message = await screen.findByText("Ouch: email is required");
-    expect(message).toBeVisible();
-    expect(message).toBeInTheDocument();
+    const message = await screen.findByTestId("message");
+    expect(message.textContent).toBe("Ouch: email is required");
   });
 
   test("renders a success message when email is typed and submit button is clicked", async () => {
@@ -70,8 +69,7 @@ describe("App Functional Component", () => {
     fireEvent.change(emailInput, { target: { value: "hello@gmail.com" } });
     const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);
-    const message = await screen.findByText("hello win #27");
-    expect(message).toBeVisible();
-    expect(message).toBeInTheDocument();
+    const message = await screen.findByTestId("message");
+    expect(message.textContent).toBe("hello win #27");
   });
 });
