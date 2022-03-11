@@ -4,6 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import AppFunctional from "./AppFunctional";
 
+jest.setTimeout(1000);
 const waitForOptions = { timeout: 100 };
 const queryOptions = { exact: false };
 
