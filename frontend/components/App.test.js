@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe("App Functional Component", () => {
   test("sanity", () => {
-    expect(true).toBe(false);
+    expect(true).toBe(true);
   });
 
   test("renders without errors", () => {
@@ -21,7 +21,7 @@ describe("App Functional Component", () => {
     const coordinatesHeading = screen.getByText("Coordinates (2, 2)");
     expect(coordinatesHeading).toBeVisible();
     expect(coordinatesHeading).toBeInTheDocument();
-    const submitBtn = screen.getByText("Submit");
+    const submitBtn = screen.getByTestId("submit");
     expect(submitBtn).toBeVisible();
     expect(submitBtn).toBeInTheDocument();
   });
@@ -58,9 +58,19 @@ describe("App Functional Component", () => {
   });
 
   test("when submitting an empty input, confirm the screen renders an error message", async () => {
-    const submitBtn = screen.getByText("Submit");
+    const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);
     const message = await screen.findByText("Ouch: email is required");
+    expect(message).toBeVisible();
+    expect(message).toBeInTheDocument();
+  });
+
+  test("renders a success message when email is typed and submit button is clicked", async () => {
+    const emailInput = screen.getByPlaceholderText("type email");
+    fireEvent.change(emailInput, { target: { value: "hello@gmail.com" } });
+    const submitBtn = screen.getByTestId("submit");
+    fireEvent.click(submitBtn);
+    const message = await screen.findByText("hello win #27");
     expect(message).toBeVisible();
     expect(message).toBeInTheDocument();
   });
