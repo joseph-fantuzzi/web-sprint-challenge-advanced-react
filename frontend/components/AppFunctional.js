@@ -9,6 +9,7 @@ export default function AppFunctional(props) {
   const [grid, setGrid] = useState(origin);
   const [steps, setSteps] = useState(0);
   const [emailInput, setEmailInput] = useState("");
+  const [message, setMessage] = useState("");
 
   const inputChangeHandler = (e) => {
     const { value } = e.target;
@@ -28,10 +29,10 @@ export default function AppFunctional(props) {
     axios
       .post(URL, payload)
       .then((res) => {
-        debugger;
+        setMessage(res.data.message);
       })
       .catch((err) => {
-        debugger;
+        setMessage(err.response.data.message);
       });
 
     setEmailInput("");
@@ -71,6 +72,8 @@ export default function AppFunctional(props) {
       grid.indexOf("B") === 8
     ) {
       setSteps(steps + 1);
+    } else {
+      setMessage("You can't go left");
     }
 
     if (grid.indexOf("B") === 1) {
@@ -98,6 +101,8 @@ export default function AppFunctional(props) {
       grid.indexOf("B") === 8
     ) {
       setSteps(steps + 1);
+    } else {
+      setMessage("You can't go up");
     }
 
     if (grid.indexOf("B") === 3) {
@@ -125,6 +130,8 @@ export default function AppFunctional(props) {
       grid.indexOf("B") === 7
     ) {
       setSteps(steps + 1);
+    } else {
+      setMessage("You can't go right");
     }
 
     if (grid.indexOf("B") === 0) {
@@ -152,6 +159,8 @@ export default function AppFunctional(props) {
       grid.indexOf("B") === 5
     ) {
       setSteps(steps + 1);
+    } else {
+      setMessage("You can't go down");
     }
 
     if (grid.indexOf("B") === 0) {
@@ -171,6 +180,7 @@ export default function AppFunctional(props) {
 
   const resetClickHandler = () => {
     setSteps(0);
+    setMessage("");
     setGrid([null, null, null, null, "B", null, null, null, null]);
   };
 
@@ -192,7 +202,7 @@ export default function AppFunctional(props) {
         <div className={`square ${grid[8] === "B" ? "active" : null}`}>{grid[8]}</div>
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={leftClickHandler}>
