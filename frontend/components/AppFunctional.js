@@ -10,18 +10,14 @@ export default function AppFunctional(props) {
   const [steps, setSteps] = useState(0);
   const [emailInput, setEmailInput] = useState("");
 
-  const getCoordinates = (gridShape) => {
-    return [x, y];
-  };
-
-  //   const [x, y] = getCoordinates(grid);
-
   const inputChangeHandler = (e) => {
     const { value } = e.target;
     setEmailInput(value);
   };
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
+
     const payload = {
       x: x,
       y: y,
@@ -40,6 +36,30 @@ export default function AppFunctional(props) {
 
     setEmailInput("");
   };
+
+  const getCoordinates = (gridShape) => {
+    if (gridShape.indexOf("B") === 0) {
+      return [1, 1];
+    } else if (gridShape.indexOf("B") === 1) {
+      return [2, 1];
+    } else if (gridShape.indexOf("B") === 2) {
+      return [3, 1];
+    } else if (gridShape.indexOf("B") === 3) {
+      return [1, 2];
+    } else if (gridShape.indexOf("B") === 4) {
+      return [2, 2];
+    } else if (gridShape.indexOf("B") === 5) {
+      return [3, 2];
+    } else if (gridShape.indexOf("B") === 6) {
+      return [1, 3];
+    } else if (gridShape.indexOf("B") === 7) {
+      return [2, 3];
+    } else if (gridShape.indexOf("B") === 8) {
+      return [3, 3];
+    }
+  };
+
+  const [x, y] = getCoordinates(grid);
 
   const leftClickHandler = () => {
     if (
@@ -157,7 +177,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates </h3>
+        <h3 id="coordinates">Coordinates {`(${x}, ${y})`}</h3>
         <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
