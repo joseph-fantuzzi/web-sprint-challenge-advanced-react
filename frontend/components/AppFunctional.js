@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const URL = "http://localhost:9000/api/result";
@@ -207,9 +207,7 @@ export default function AppFunctional(props) {
         <div className={`square ${grid[8] === "B" ? "active" : null}`}>{grid[8]}</div>
       </div>
       <div className="info">
-        <h3 id="message" data-testid="message">
-          {message}
-        </h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={leftClickHandler}>

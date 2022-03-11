@@ -4,6 +4,9 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import AppFunctional from "./AppFunctional";
 
+const waitForOptions = { timeout: 100 };
+const queryOptions = { exact: false };
+
 beforeEach(() => {
   render(<AppFunctional className="functional" />);
 });
@@ -60,8 +63,7 @@ describe("App Functional Component", () => {
   test("when submitting an empty input, confirm the screen renders an error message", async () => {
     const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);
-    const message = await screen.findByTestId("message");
-    expect(message.textContent).toBe("Ouch: email is required");
+    await screen.findByText("Ouch: email is required", queryOptions, waitForOptions);
   });
 
   test("renders a success message when email is typed and submit button is clicked", async () => {
@@ -69,7 +71,6 @@ describe("App Functional Component", () => {
     fireEvent.change(emailInput, { target: { value: "hello@gmail.com" } });
     const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);
-    const message = await screen.findByTestId("message");
-    expect(message.textContent).toBe("hello win #27");
+    await screen.findByText("hello win #27", queryOptions, waitForOptions);
   });
 });
