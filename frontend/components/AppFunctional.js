@@ -3,9 +3,18 @@ import axios from "axios";
 
 const URL = "http://localhost:9000/api/result";
 
+const origin = [null, null, null, null, "B", null, null, null, null];
+
 export default function AppFunctional(props) {
-  const [grid, setGrid] = useState([]);
+  const [grid, setGrid] = useState(origin);
+  const [steps, setSteps] = useState(0);
   const [emailInput, setEmailInput] = useState("");
+
+  const getCoordinates = (gridShape) => {
+    return [x, y];
+  };
+
+  //   const [x, y] = getCoordinates(grid);
 
   const inputChangeHandler = (e) => {
     const { value } = e.target;
@@ -14,46 +23,173 @@ export default function AppFunctional(props) {
 
   const submitHandler = () => {
     const payload = {
-      x: 1,
-      y: 2,
-      steps: 3,
-      email: "lady@gaga.com",
+      x: x,
+      y: y,
+      steps: steps,
+      email: emailInput,
     };
-    // axios.post(URL, payload)
-    //    .then(res => {
-    //       debugger
-    //    })
-    //    .catch(err => {
-    //       debugger
-    //    })
+
+    axios
+      .post(URL, payload)
+      .then((res) => {
+        debugger;
+      })
+      .catch((err) => {
+        debugger;
+      });
+
+    setEmailInput("");
+  };
+
+  const leftClickHandler = () => {
+    if (
+      grid.indexOf("B") === 1 ||
+      grid.indexOf("B") === 2 ||
+      grid.indexOf("B") === 4 ||
+      grid.indexOf("B") === 5 ||
+      grid.indexOf("B") === 7 ||
+      grid.indexOf("B") === 8
+    ) {
+      setSteps(steps + 1);
+    }
+
+    if (grid.indexOf("B") === 1) {
+      setGrid(["B", null, null, null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 2) {
+      setGrid([null, "B", null, null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 4) {
+      setGrid([null, null, null, "B", null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 5) {
+      setGrid(origin);
+    } else if (grid.indexOf("B") === 7) {
+      setGrid([null, null, null, null, null, null, "B", null, null]);
+    } else if (grid.indexOf("B") === 8) {
+      setGrid([null, null, null, null, null, null, null, "B", null]);
+    }
+  };
+
+  const upClickHandler = () => {
+    if (
+      grid.indexOf("B") === 3 ||
+      grid.indexOf("B") === 4 ||
+      grid.indexOf("B") === 5 ||
+      grid.indexOf("B") === 6 ||
+      grid.indexOf("B") === 7 ||
+      grid.indexOf("B") === 8
+    ) {
+      setSteps(steps + 1);
+    }
+
+    if (grid.indexOf("B") === 3) {
+      setGrid(["B", null, null, null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 4) {
+      setGrid([null, "B", null, null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 5) {
+      setGrid([null, null, "B", null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 6) {
+      setGrid([null, null, null, "B", null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 7) {
+      setGrid(origin);
+    } else if (grid.indexOf("B") === 8) {
+      setGrid([null, null, null, null, null, "B", null, null, null]);
+    }
+  };
+
+  const rightClickHandler = () => {
+    if (
+      grid.indexOf("B") === 0 ||
+      grid.indexOf("B") === 1 ||
+      grid.indexOf("B") === 3 ||
+      grid.indexOf("B") === 4 ||
+      grid.indexOf("B") === 6 ||
+      grid.indexOf("B") === 7
+    ) {
+      setSteps(steps + 1);
+    }
+
+    if (grid.indexOf("B") === 0) {
+      setGrid([null, "B", null, null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 1) {
+      setGrid([null, null, "B", null, null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 3) {
+      setGrid(origin);
+    } else if (grid.indexOf("B") === 4) {
+      setGrid([null, null, null, null, null, "B", null, null, null]);
+    } else if (grid.indexOf("B") === 6) {
+      setGrid([null, null, null, null, null, null, null, "B", null]);
+    } else if (grid.indexOf("B") === 7) {
+      setGrid([null, null, null, null, null, null, null, null, "B"]);
+    }
+  };
+
+  const downClickHandler = () => {
+    if (
+      grid.indexOf("B") === 0 ||
+      grid.indexOf("B") === 1 ||
+      grid.indexOf("B") === 2 ||
+      grid.indexOf("B") === 3 ||
+      grid.indexOf("B") === 4 ||
+      grid.indexOf("B") === 5
+    ) {
+      setSteps(steps + 1);
+    }
+
+    if (grid.indexOf("B") === 0) {
+      setGrid([null, null, null, "B", null, null, null, null, null]);
+    } else if (grid.indexOf("B") === 1) {
+      setGrid(origin);
+    } else if (grid.indexOf("B") === 2) {
+      setGrid([null, null, null, null, null, "B", null, null, null]);
+    } else if (grid.indexOf("B") === 3) {
+      setGrid([null, null, null, null, null, null, "B", null, null]);
+    } else if (grid.indexOf("B") === 4) {
+      setGrid([null, null, null, null, null, null, null, "B", null]);
+    } else if (grid.indexOf("B") === 5) {
+      setGrid([null, null, null, null, null, null, null, null, "B"]);
+    }
+  };
+
+  const resetClickHandler = () => {
+    setSteps(0);
+    setGrid([null, null, null, null, "B", null, null, null, null]);
   };
 
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="coordinates">Coordinates </h3>
+        <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
-        <div className="square">{grid[0]}</div>
-        <div className="square">{grid[1]}</div>
-        <div className="square">{grid[2]}</div>
-        <div className="square">{grid[3]}</div>
-        <div className="square active">{grid[4]}</div>
-        <div className="square">{grid[5]}</div>
-        <div className="square">{grid[6]}</div>
-        <div className="square">{grid[7]}</div>
-        <div className="square">{grid[8]}</div>
+        <div className={`square ${grid[0] === "B" ? "active" : null}`}>{grid[0]}</div>
+        <div className={`square ${grid[1] === "B" ? "active" : null}`}>{grid[1]}</div>
+        <div className={`square ${grid[2] === "B" ? "active" : null}`}>{grid[2]}</div>
+        <div className={`square ${grid[3] === "B" ? "active" : null}`}>{grid[3]}</div>
+        <div className={`square ${grid[4] === "B" ? "active" : null}`}>{grid[4]}</div>
+        <div className={`square ${grid[5] === "B" ? "active" : null}`}>{grid[5]}</div>
+        <div className={`square ${grid[6] === "B" ? "active" : null}`}>{grid[6]}</div>
+        <div className={`square ${grid[7] === "B" ? "active" : null}`}>{grid[7]}</div>
+        <div className={`square ${grid[8] === "B" ? "active" : null}`}>{grid[8]}</div>
       </div>
       <div className="info">
         <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+        <button id="left" onClick={leftClickHandler}>
+          LEFT
+        </button>
+        <button id="up" onClick={upClickHandler}>
+          UP
+        </button>
+        <button id="right" onClick={rightClickHandler}>
+          RIGHT
+        </button>
+        <button id="down" onClick={downClickHandler}>
+          DOWN
+        </button>
+        <button id="reset" onClick={resetClickHandler}>
+          reset
+        </button>
       </div>
       <form onSubmit={submitHandler}>
         <input
