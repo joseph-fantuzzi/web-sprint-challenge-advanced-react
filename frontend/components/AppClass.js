@@ -79,7 +79,12 @@ export default class AppClass extends React.Component {
   };
 
   leftClickHandler = () => {
-    this.state.message !== "" && this.setState({ ...this.state, message: "" });
+    if (this.state.message !== "") {
+      this.setState({
+        ...this.state,
+        message: "",
+      });
+    }
 
     if (
       this.state.grid.indexOf("B") === 1 ||
@@ -134,7 +139,12 @@ export default class AppClass extends React.Component {
   };
 
   upClickHandler = () => {
-    this.state.message !== "" && this.setState({ ...this.state, message: "" });
+    if (this.state.message !== "") {
+      this.setState({
+        ...this.state,
+        message: "",
+      });
+    }
 
     if (this.state.grid.indexOf("B") > 2 && this.state.grid.indexOf("B") < 9) {
       this.setState({
@@ -182,7 +192,12 @@ export default class AppClass extends React.Component {
   };
 
   rightClickHandler = () => {
-    this.state.message !== "" && this.setState({ ...this.state, message: "" });
+    if (this.state.message !== "") {
+      this.setState({
+        ...this.state,
+        message: "",
+      });
+    }
 
     if (
       this.state.grid.indexOf("B") === 0 ||
@@ -237,7 +252,12 @@ export default class AppClass extends React.Component {
   };
 
   downClickHandler = () => {
-    this.state.message !== "" && this.setState({ ...this.state, message: "" });
+    if (this.state.message !== "") {
+      this.setState({
+        ...this.state,
+        message: "",
+      });
+    }
 
     if (this.state.grid.indexOf("B") >= 0 && this.state.grid.indexOf("B") < 6) {
       this.setState({
