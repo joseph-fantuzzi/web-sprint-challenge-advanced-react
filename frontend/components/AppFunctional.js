@@ -63,6 +63,10 @@ export default function AppFunctional(props) {
   const [x, y] = getCoordinates(grid);
 
   const leftClickHandler = () => {
+    if (message !== "") {
+      setMessage("");
+    }
+
     if (
       grid.indexOf("B") === 1 ||
       grid.indexOf("B") === 2 ||
@@ -92,14 +96,11 @@ export default function AppFunctional(props) {
   };
 
   const upClickHandler = () => {
-    if (
-      grid.indexOf("B") === 3 ||
-      grid.indexOf("B") === 4 ||
-      grid.indexOf("B") === 5 ||
-      grid.indexOf("B") === 6 ||
-      grid.indexOf("B") === 7 ||
-      grid.indexOf("B") === 8
-    ) {
+    if (message !== "") {
+      setMessage("");
+    }
+
+    if (grid.indexOf("B") > 2 && grid.indexOf("B") < 9) {
       setSteps(steps + 1);
     } else {
       setMessage("You can't go up");
@@ -121,6 +122,10 @@ export default function AppFunctional(props) {
   };
 
   const rightClickHandler = () => {
+    if (message !== "") {
+      setMessage("");
+    }
+
     if (
       grid.indexOf("B") === 0 ||
       grid.indexOf("B") === 1 ||
@@ -150,14 +155,11 @@ export default function AppFunctional(props) {
   };
 
   const downClickHandler = () => {
-    if (
-      grid.indexOf("B") === 0 ||
-      grid.indexOf("B") === 1 ||
-      grid.indexOf("B") === 2 ||
-      grid.indexOf("B") === 3 ||
-      grid.indexOf("B") === 4 ||
-      grid.indexOf("B") === 5
-    ) {
+    if (message !== "") {
+      setMessage("");
+    }
+
+    if (grid.indexOf("B") >= 0 && grid.indexOf("B") < 6) {
       setSteps(steps + 1);
     } else {
       setMessage("You can't go down");
@@ -181,7 +183,7 @@ export default function AppFunctional(props) {
   const resetClickHandler = () => {
     setSteps(0);
     setMessage("");
-    setGrid([null, null, null, null, "B", null, null, null, null]);
+    setGrid(origin);
   };
 
   return (
