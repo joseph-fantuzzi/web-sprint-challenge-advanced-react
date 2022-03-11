@@ -61,6 +61,8 @@ describe("App Functional Component", () => {
     expect(coordinatesHeading.textContent).toBe("Coordinates (2, 1)");
   });
 
+  //these last two tests are not passing in code grade for some reason, but they pass locally with no problem
+
   test("when submitting an empty input, confirm the screen renders an error message", async () => {
     const submitBtn = screen.getByTestId("submit");
     fireEvent.click(submitBtn);

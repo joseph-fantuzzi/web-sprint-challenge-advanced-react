@@ -91,9 +91,8 @@ export default class AppClass extends React.Component {
     ) {
       this.setState({
         ...this.state,
-        steps: this.state.steps + 1,
+        steps: this.state.steps++,
       });
-      console.log(this.state.steps);
     } else {
       this.setState({
         ...this.state,
@@ -137,17 +136,10 @@ export default class AppClass extends React.Component {
   upClickHandler = () => {
     this.state.message !== "" && this.setState({ ...this.state, message: "" });
 
-    if (
-      this.state.grid.indexOf("B") === 3 ||
-      this.state.grid.indexOf("B") === 4 ||
-      this.state.grid.indexOf("B") === 5 ||
-      this.state.grid.indexOf("B") === 6 ||
-      this.state.grid.indexOf("B") === 7 ||
-      this.state.grid.indexOf("B") === 8
-    ) {
+    if (this.state.grid.indexOf("B") > 2 && this.state.grid.indexOf("B") < 9) {
       this.setState({
         ...this.state,
-        steps: this.state.steps + 1,
+        steps: this.state.steps++,
       });
     } else {
       this.setState({
@@ -202,7 +194,7 @@ export default class AppClass extends React.Component {
     ) {
       this.setState({
         ...this.state,
-        steps: this.state.steps + 1,
+        steps: this.state.steps++,
       });
     } else {
       this.setState({
@@ -247,17 +239,10 @@ export default class AppClass extends React.Component {
   downClickHandler = () => {
     this.state.message !== "" && this.setState({ ...this.state, message: "" });
 
-    if (
-      this.state.grid.indexOf("B") === 0 ||
-      this.state.grid.indexOf("B") === 1 ||
-      this.state.grid.indexOf("B") === 2 ||
-      this.state.grid.indexOf("B") === 3 ||
-      this.state.grid.indexOf("B") === 4 ||
-      this.state.grid.indexOf("B") === 5
-    ) {
+    if (this.state.grid.indexOf("B") >= 0 && this.state.grid.indexOf("B") < 6) {
       this.setState({
         ...this.state,
-        steps: this.state.steps + 1,
+        steps: this.state.steps++,
       });
     } else {
       this.setState({
@@ -317,7 +302,9 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates {`(${x}, ${y})`}</h3>
-          <h3 id="steps">You moved {this.state.steps} times</h3>
+          <h3 id="steps">
+            You moved {this.state.steps} {this.state.steps === 1 ? "time" : "times"}
+          </h3>
         </div>
         <div id="grid">
           <div className={`square ${this.state.grid[0] === "B" ? "active" : null}`}>
